@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏹Happy Ram Navami</title>
+<title>🎮 Let's Play this game...</title>
 <link rel="icon" href="happy_ramnavami_favicon.png" type="image/x-icon">
 <style>
     :root {
@@ -72,6 +72,7 @@
 
 
 <body>
+    <audio id="explosion-audio" src="bomb_explosion.mp3"></audio>
     <div class="footer">
         <p>Bombs: <span id="bombs-text">0</span></p>
         <p>Explosions: <span id="explosions-text">0</span></p>
@@ -180,5 +181,35 @@
         recursiveBombSpawn()
         </script>
 
-    </script>
+<script>
+    // Define function to play explosion sound
+    const playExplosionSound = () => {
+        const explosionAudio = document.getElementById("explosion-audio");
+        explosionAudio.play();
+    };
+
+    // Modify explodeBomb function to play sound
+    const explodeBomb = (bombElement) => {
+        if (bombElement.className === "explosion") return;
+
+        explosionCounter++;
+        updateText("explosions-text", `${explosionCounter}`);
+
+        const bombPosition = bombElement.getBoundingClientRect();
+        const randomDegs = Math.round(Math.random() * 360);
+
+        bombElement.className = "explosion";
+        bombElement.style.transition = "unset";
+        bombElement.style.animationDuration = `${TIME_EXPLOSION_ANIMATION}ms`;
+        bombElement.style.transform = `rotate(${randomDegs}deg)`;
+        bombElement.style.left = `${bombPosition.x - 70}px`;
+        bombElement.style.top = `${bombPosition.y - 30}px`;
+
+        playExplosionSound(); // Play explosion sound
+
+        console.log("ESTOUROU " + bombElement.id);
+    };
+
+    // Rest of your JavaScript code...
+</script>
 </body>
