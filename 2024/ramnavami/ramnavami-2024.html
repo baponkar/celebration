@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏹Happy Ram Navami</title>
+<link rel="icon" href="happy_ramnavami_favicon.png" type="image/x-icon">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  .image-container {
+    overflow: hidden;
+    position: relative;
+    width: 480px;
+    height: 480px;
+  }
+  .image-container img {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    transition: left 2s ease-in-out;
+  }
+  .image-container img.loaded {
+    left: 0;
+  }
+</style>
+</head>
+<body>
+<div class="image-container">
+  <img src="#" alt="Dramatic Image" onload="this.classList.add('loaded')" />
+</div>
+
+<script>
+  // Replace '#' with the URL of your image
+  const imgSrc = 'joy_sri_ram.gif'; // example image URL
+  
+  
+  // Select the image and set its src attribute
+  const imgElement = document.querySelector('.image-container img');
+  imgElement.src = imgSrc;
+</script>
+</body>
+</html>
