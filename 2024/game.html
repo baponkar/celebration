@@ -168,4 +168,71 @@
         recursiveBombSpawn()
 
     </script>
+
+    <script>
+        <script>
+            const TIME_TO_BOMB_FALL = 1500;
+            const TIME_EXPLOSION_ANIMATION = 450;
+            const TIME_MIN_DROP_BOMB_INTERVAL = 100;
+
+            let bombCounter = 0;
+            let explosionCounter = 0;
+            let loseBombsCounter = 0;
+            let dropInterval = 400;
+
+            const updateText = (elementId, content) => {
+                const element = document.getElementById(elementId);
+                element.textContent = content;
+            };
+
+            updateText("drop-interval-text", `${dropInterval}ms`);
+
+            const explodeBomb = (bombElement) => {
+                if (bombElement.className === "explosion") return;
+
+                explosionCounter++;
+                updateText("explosions-text", `${explosionCounter}`);
+
+                const bombPosition = bombElement.getBoundingClientRect();
+                const randomDegs = Math.round(Math.random() * 360);
+
+                bombElement.className = "explosion";
+                bombElement.style.transition = "unset";
+                bombElement.style.animationDuration = `${TIME_EXPLOSION_ANIMATION}ms`;
+                bombElement.style.transform = `rotate(${randomDegs}deg)`;
+                bombElement.style.left = `${bombPosition.x - 70}px`;
+                bombElement.style.top = `${bombPosition.y - 30}px`;
+
+                console.log("ESTOUROU " + bombElement.id);
+            };
+
+            const createBombElement = () => {
+                const bombElement = document.createElement("div");
+                const positionX = Math.round(Math.random() * (document.body.clientWidth - 100)) + 20;
+
+                bombElement.className = "bomb";
+                bombElement.id = `bomb-${bombCounter}`;
+                bombElement.style.left = `${positionX}px`;
+                bombElement.style.top = "-110px";
+
+                const explodeHandler = () => explodeBomb(bombElement);
+
+                // Mouse event listeners
+                bombElement.onmouseenter = explodeHandler;
+
+                // Touch event listeners
+                bombElement.ontouchstart = (event) => {
+                    event.preventDefault(); // Prevent default touch action (scrolling etc.)
+                    explodeHandler();
+                };
+
+                document.body.appendChild(bombElement);
+
+                return bombElement;
+            };
+
+            // Rest of your code...
+        </script>
+
+    </script>
 </body>
