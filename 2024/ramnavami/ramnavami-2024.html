@@ -30,11 +30,15 @@
   .image-container img.loaded {
     left: 0;
   }
+
+  
 </style>
 </head>
 <body>
+  
 <div class="image-container">
   <img src="#" alt="Dramatic Image" onload="this.classList.add('loaded')" />
+ 
 </div>
 
 <script>
@@ -46,5 +50,82 @@
   const imgElement = document.querySelector('.image-container img');
   imgElement.src = imgSrc;
 </script>
+
+<script>
+  let MAX_SPEED = .05;
+let MAX_TIMESTEP = 100;
+let MAX_PARTICLES = 100;
+let MAX_PARTICLE_SIZE = 3;
+let START_ANGLE = 0;
+let END_ANGLE = Math.PI * 2;
+
+let mouseX = window.innerWidth/2;
+let mouseY = window.innerHeight/2;
+
+let svg = d3.select("svg")
+  .attr("width",window.innerWidth)
+  .attr("height",window.innerHeight)
+  .style("background","black")
+  .on("mousemove",function(){
+    mouseX = d3.mouse(svg.node())[0];
+    mouseY = d3.mouse(svg.node())[1];
+  });
+
+function tick(particleArray){
+  particleArray.forEach((d)=>{
+    if(d.timeStep < MAX_TIMESTEP) {
+      updateParticle(d);
+      }
+    else {
+      resetParticle(d, mouseX, mouseY);
+    }
+  });
+}
+
+function resetParticle(d, mouseX, mouseY){
+  d.timeStep = Math.floor(Math.random() * MAX_TIMESTEP);
+  d.speed = Math.random() * MAX_SPEED;
+  d.angle = Math.random() * (END_ANGLE - START_ANGLE) + START_ANGLE;
+  d.x = mouseX;
+  d.y = mouseY;
+}
+
+function updateParticle(d){
+  d.timeStep++;
+  d.x += Math.cos(d.angle) * d.timeStep * d.speed;
+  d.y += Math.sin(d.angle) * d.timeStep * d.speed;
+}
+
+let particles = [];
+for(let i = 0;i < MAX_PARTICLES; i++){
+  let newParticle = {};
+  resetParticle(newParticle);
+  particles.push(newParticle);
+  
+}
+
+function update(particleArray){
+  let data = svg.selectAll(".particle")
+    .data(particles)
+  
+  data
+    .enter()
+    .append("rect")
+    .attr("width",MAX_PARTICLE_SIZE)
+    .attr("height",MAX_PARTICLE_SIZE)
+    .style("fill",(d)=>Math.random()>.5?"red":"orange")
+    .classed("particle",true);
+  
+    data
+      .attr("x",(d)=>d.x)
+      .attr("y",(d)=>d.y)
+}
+
+setInterval(function(){
+  tick(particles);
+  update(particles);
+},10);
+</script>
+
 </body>
 </html>
