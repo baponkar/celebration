@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Colored Banner</title>
+<style>
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+/* Example of a responsive CSS */
+@media only screen and (max-width: 600px) {
+  /* Styles for devices with a maximum width of 600px */
+  .container {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
+  .banner {
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #ff4e50, #fc913a, #f9d423);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .banner span {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: animate 2s linear infinite;
+  }
+
+  .banner span:nth-child(1) {
+    left: -10%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 0s;
+  }
+
+  .banner span:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0.5s;
+  }
+
+  .banner span:nth-child(3) {
+    left: 30%;
+    width: 30px;
+    height: 30px;
+    animation-delay: 1s;
+  }
+
+  .banner span:nth-child(4) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 1.5s;
+  }
+
+  .banner span:nth-child(5) {
+    left: 70%;
+    width: 35px;
+    height: 35px;
+    animation-delay: 2s;
+  }
+
+  .banner span:nth-child(6) {
+    left: 90%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2.5s;
+  }
+
+  @keyframes animate {
+    0% {
+      top: -50px;
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    50% {
+      top: 100%;
+      opacity: 0;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      top: -50px;
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+    <div class="banner">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    <div class="container">
+          <h1>Welcome in my festival Celebration Template</h1>
+      </div>
+  
+
+  
+</body>
+</html>
